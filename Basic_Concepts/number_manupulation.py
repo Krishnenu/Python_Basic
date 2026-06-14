@@ -63,3 +63,20 @@ print(l1)
 # decimal contex manager
 
 print(0.1+0.1+0.4,(0.1+0.1+0.4)-0.3)
+
+
+# set
+
+setone={1,2,3,4}
+print(setone & {1,3})
+print(setone)
+print(setone | {1,3})
+setone-{1,2,3,4}
+print(setone)
+print(type(setone))
+print(type({}))
+
+# boolean
+
+print(1==1)
+print(True ==1, True is 1)
