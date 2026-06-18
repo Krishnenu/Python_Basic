@@ -67,3 +67,27 @@ print(new_dict)
 new_dict=dict.fromkeys(keys,keys)
 
 print(new_dict)
+
+
+#------------------------------tuples-----------------------------------
+
+# tuple is the unmutable type of list
+
+tea_types=("black","green","Oolong")
+
+print(tea_types,tea_types[0],tea_types[1:])
+
+#tea_types[0]="lemon" # cant mutate
+
+more_teas=("herbal","eal grey")
+
+all_teas=more_teas+tea_types
+
+print(f"all_teas: {all_teas}")
+
+
+(black,green,Oolong)=tea_types
+
+print(type(black))
+
+# nesting can done here also
