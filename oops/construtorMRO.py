@@ -35,6 +35,10 @@ class J:
     def feature(self):
         print("working feature J")
 
+    def featureC(self):
+        print("working feature super")
+    
+
 # MRO method resolution order left to right
 class K(I,J):
     def __init__(self):
@@ -44,6 +48,9 @@ class K(I,J):
     def feature6(self):
         print("working feature 6")
 
+    def featur8(self):
+        super().featureC()
+
 a=X()
 b=Y()
 
@@ -51,3 +58,4 @@ b=Y()
 
 c=K()
 c.feature()
+c.featur8()
