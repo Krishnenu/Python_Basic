@@ -1,48 +1,48 @@
 # decorators
 
-def decorator_function(original_function):
-    def wrapper_function():
-        print("hellow code executed before wrapper")
-        return original_function()
-    return wrapper_function
+# def decorator_function(original_function):
+#     def wrapper_function():
+#         print("hellow code executed before wrapper")
+#         return original_function()
+#     return wrapper_function
 
-def display():
-    print("display function run")
+# def display():
+#     print("display function run")
 
 
-decorated_display=decorator_function(display)
-decorated_display()
+# decorated_display=decorator_function(display)
+# decorated_display()
 #-------------------------------------------------------------------------------
 
-def decorator_function(original_function):
-    def wrapper_function(*args,**kwargs):
-        print('hellow code executed before wrapper {}'.format(original_function.__name__))
-        return original_function(*args,**kwargs)
-    return wrapper_function
+# def decorator_function(original_function):
+#     def wrapper_function(*args,**kwargs):
+#         print('hellow code executed before wrapper {}'.format(original_function.__name__))
+#         return original_function(*args,**kwargs)
+#     return wrapper_function
 
 
-@decorator_function
-def display():
-    print("display function run")
+# @decorator_function
+# def display():
+#     print("display function run")
 
-@decorator_function
-def display_info(name,age):
-    print('display name: {} and age : {}'.format(name,age))
+# @decorator_function
+# def display_info(name,age):
+#     print('display name: {} and age : {}'.format(name,age))
 
-display()
+# display()
 
-display_info("krish",30)
+# display_info("krish",30)
 
 
-def my_logger(orig_func):
-    import logging
-    logging.basicConfig(filename='{}.log'.format(orig_func.__name__),level=logging.info)
+# def my_logger(orig_func):
+#     import logging
+#     logging.basicConfig(filename='{}.log'.format(orig_func.__name__),level=logging.info)
 
-    def wrapper(*args,**kwargs):
-        logging.info('Ran with args: {},and kwargs: {}'.format(args,kwargs))
-        return orig_func(*args,**kwargs)
+#     def wrapper(*args,**kwargs):
+#         logging.info('Ran with args: {},and kwargs: {}'.format(args,kwargs))
+#         return orig_func(*args,**kwargs)
 
-    return wrapper
+#     return wrapper
 
 
 
@@ -65,3 +65,30 @@ def my_logger(orig_func):
 
 
 # ------------------------------------------------------------
+
+
+def retry(func):
+    def wrapper(*args, **kwargs):
+        for attempt in range(1, 4):
+            try:
+                return func(*args, **kwargs)
+            except Exception as e:
+                print(f"Attempt {attempt} failed: {e}")
+
+                if attempt == 3:
+                    raise
+
+    return wrapper
+
+
+@retry
+def call_llm(prompt):
+    raise Exception("API rate limit exceeded")
+
+
+try:
+    print(call_llm("Hello"))
+except Exception as e:
+    print("Final Exception:", e)
+
+
